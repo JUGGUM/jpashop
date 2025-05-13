@@ -28,6 +28,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:${version}")
+	// 이러한 라이브러리는 개발단계는 괜찮지만 운영단계에서 쓰는건 생각해봐야됌
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
