@@ -22,7 +22,7 @@ public class MemberRepositoryImpl implements MemberRepository {
         return em.find(Member.class, id);
     }
 
-    // JPQL
+    // JPQL -> SQL과 달리 테이블이 아닌 엔티티 객체를 대상으로 쿼리
     public List<Member> findAll() {
         return em.createQuery("select m from Member m", Member.class).getResultList();
     }
