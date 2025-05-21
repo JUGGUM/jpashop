@@ -19,13 +19,15 @@ import java.util.ArrayList;
 import java.util.List;
 import jpabook.jpashop.domain.model.DeliveryStatus;
 import jpabook.jpashop.domain.model.OrderStatus;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "orders")
-@Getter
-@Setter
+@Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
     @Id
