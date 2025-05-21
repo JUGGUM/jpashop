@@ -38,6 +38,7 @@ public class Order {
     private Member member; // 주문 회원
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    // Order를 persist 하면 CasCadeType.ALL되어있는것도 같이 persist한다
     private List<OrderItem> orderItems = new ArrayList<>();
     /***
      * persist(orderItemsA)
@@ -79,7 +80,7 @@ public class Order {
         Order order = new Order();
         order.setMember(member);
         order.setDelivery(delivery);
-        for(OrderItem orderItem : orderItems) {
+        for (OrderItem orderItem : orderItems) {
             order.addOrderItem(orderItem);
         }
         order.setStatus(OrderStatus.ORDER);
@@ -88,22 +89,26 @@ public class Order {
     }
 
     //==비즈니스 로직==//
+
     /**
      * 주문 취소
      */
-    public void cancel(){
-        if(delivery.getStatus() == DeliveryStatus.COMP){
+    public void cancel() {
+        if (delivery.getStatus() == DeliveryStatus.COMP) {
             throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능합니다.");
         }
         this.setStatus(OrderStatus.CANCEL);
-        for(OrderItem orderItem : orderItems) {
+        for (OrderItem orderItem : orderItems) {
             orderItem.cancel();
         }
     }
 
     //==조회로직==//
-    /**전체 주문 가격 조회*/
-    public int getTotalPrice(){
+
+    /**
+     * 전체 주문 가격 조회
+     */
+    public int getTotalPrice() {
         return orderItems
                 .stream()
                 .mapToInt(OrderItem::getTotalPrice)
