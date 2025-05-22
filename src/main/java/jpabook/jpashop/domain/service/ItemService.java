@@ -15,6 +15,8 @@ public class ItemService {
 
     @Transactional
     public void saveItem(Item item) {
+        //저장할떄 ID갈취할수있기때문에 요즘에는 세션객체를 안쓰므로
+        //해당물건에대해 유저가 권한이있는지를 한번체크하는로직필요
         itemRepository.save(item);
     }
 

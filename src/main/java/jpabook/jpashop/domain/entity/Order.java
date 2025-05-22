@@ -30,6 +30,11 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
+    /**
+     * 기억해야할건 엔티티는 jpa를쓸때 정말순수그자체로 유지되어야함
+     * 하지만 실무에서는 엔티티그자채를 request/response 하는일이많지않으므로
+     * DTO로 감싸서 요청받고뱉어줘야함
+     */
     @Id
     @GeneratedValue
     @Column(name = "order_id")

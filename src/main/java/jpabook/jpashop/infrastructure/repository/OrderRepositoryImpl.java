@@ -99,4 +99,6 @@ public class OrderRepositoryImpl implements OrderRepository {
         return query.getResultList();
     }
 
+    // 이모든걸 고민해서 동적쿼리로 나온게 Querydsl
+
 }
