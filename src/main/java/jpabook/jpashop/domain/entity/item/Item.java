@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import jpabook.jpashop.application.exception.NotEnoughStockException;
 import jpabook.jpashop.domain.entity.Category;
+import jpabook.jpashop.presentation.dto.UpdateItemDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -54,5 +55,16 @@ public abstract class Item {
             throw new NotEnoughStockException("need more stock");
         }
         this.stockQuantity = restStock;
+    }
+
+    /***
+     * Setter없이 엔티티안에서 바로 메소드를만들어서
+     * 이안에서 변경할수가있게끔하는게낫다.
+     * @param itemDto
+     */
+    public void change(UpdateItemDto itemDto) {
+        this.name = itemDto.getName();
+        this.price = itemDto.getPrice();
+        this.stockQuantity = itemDto.getStockQuantity();
     }
 }
