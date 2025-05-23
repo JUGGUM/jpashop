@@ -1,7 +1,6 @@
 package jpabook.jpashop.domain.service;
 
 import java.util.List;
-import jpabook.jpashop.domain.entity.item.Book;
 import jpabook.jpashop.domain.entity.item.Item;
 import jpabook.jpashop.domain.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true) // 읽기 작업 성능 최적화
 @RequiredArgsConstructor
 public class ItemService {
+
     private final ItemRepository itemRepository;
 
     @Transactional
@@ -20,14 +20,17 @@ public class ItemService {
         //해당물건에대해 유저가 권한이있는지를 한번체크하는로직필요
         itemRepository.save(item);
     }
+
+    /**
+     * 영속성 컨텍스트가 자동 변경
+     */
     @Transactional
-    public Item updateItem(Long itemId, Book param) {
-        Item findItem = itemRepository.findOne(itemId);
-        findItem.setPrice(param.getPrice());
-        findItem.setName(param.getName());
-        findItem.setStockQuantity(param.getStockQuantity());
-        return findItem;
-    } // UPDATE SQL 나감 DIRTY CHECKING
+    public void updateItem(Long id, String name, int price, int stockQuantity) {
+        Item item = itemRepository.findOne(id);
+        item.setName(name);
+        item.setPrice(price);
+        item.setStockQuantity(stockQuantity);
+    }
 
     public List<Item> findItems() {
         return itemRepository.findAll();
