@@ -36,7 +36,7 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     //JPQL : 문자로 생성하기는 번거롭고 실수로 인한 버그가 충분히 발생할수있음(비추천)
     @Override
-    public List<Order> findAll(OrderSearch orderSearch) {
+    public List<Order> findAllByString(OrderSearch orderSearch) {
         //language=JPQL
         String jpql = "select o From Order o join o.member m";
         boolean isFirstCondition = true;

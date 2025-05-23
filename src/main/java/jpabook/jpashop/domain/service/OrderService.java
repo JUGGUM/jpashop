@@ -5,6 +5,7 @@ import jpabook.jpashop.domain.entity.Delivery;
 import jpabook.jpashop.domain.entity.Member;
 import jpabook.jpashop.domain.entity.Order;
 import jpabook.jpashop.domain.entity.OrderItem;
+import jpabook.jpashop.domain.entity.OrderSearch;
 import jpabook.jpashop.domain.entity.item.Item;
 import jpabook.jpashop.domain.model.DeliveryStatus;
 import jpabook.jpashop.domain.repository.ItemRepository;
@@ -28,7 +29,9 @@ public class OrderService {
      */
     @Transactional
     public Long order(Long memberId, Long itemId, int count) {
-        //엔티티 조회
+        //엔티티 조회 -> 여기서 조회를 안하고 컨트롤러에서 조회해버리면
+        //트랜잭션안에서 걸리지않아 영속성컨텍스트와 관련없는엔티티라고 생각하고
+        //더티체킹이나이런것들 생략할수있기에 서비스에서 하는게좋음
         Member member = memberRepository.findOne(memberId);
         Item item = itemRepository.findOne(itemId);
 
@@ -64,8 +67,7 @@ public class OrderService {
     /**
      * 주문검색
      */
-/*    public List<Order> findOrders(OrderSearch orderSearch){
-        return orderRepository.findAll(orderSearch);
-
-    }*/
+    public List<Order> findOrders(OrderSearch orderSearch){
+        return orderRepository.findAllByString(orderSearch);
+    }
 }

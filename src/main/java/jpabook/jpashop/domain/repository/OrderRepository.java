@@ -7,5 +7,6 @@ import jpabook.jpashop.domain.entity.OrderSearch;
 public interface OrderRepository {
     void save(Order order);
     Order findOne(Long id);
-    List<Order> findAll(OrderSearch orderSearch);
+    List<Order> findAllByString(OrderSearch orderSearch);
+    List<Order> findAllByCriteria(OrderSearch orderSearch);
 }
