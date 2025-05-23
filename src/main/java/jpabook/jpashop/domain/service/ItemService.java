@@ -3,6 +3,7 @@ package jpabook.jpashop.domain.service;
 import java.util.List;
 import jpabook.jpashop.domain.entity.item.Item;
 import jpabook.jpashop.domain.repository.ItemRepository;
+import jpabook.jpashop.presentation.dto.UpdateItemDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,11 +26,11 @@ public class ItemService {
      * 영속성 컨텍스트가 자동 변경
      */
     @Transactional
-    public void updateItem(Long id, String name, int price, int stockQuantity) {
+    public void updateItem(Long id, UpdateItemDto itemDto) {
         Item item = itemRepository.findOne(id);
-        item.setName(name);
-        item.setPrice(price);
-        item.setStockQuantity(stockQuantity);
+        item.setName(itemDto.getName());
+        item.setPrice(itemDto.getPrice());
+        item.setStockQuantity(itemDto.getStockQuantity());
     }
 
     public List<Item> findItems() {
