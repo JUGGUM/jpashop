@@ -1,6 +1,7 @@
 package jpabook.jpashop.domain.service;
 
 import java.util.List;
+import jpabook.jpashop.domain.entity.item.Book;
 import jpabook.jpashop.domain.entity.item.Item;
 import jpabook.jpashop.domain.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,14 @@ public class ItemService {
         //해당물건에대해 유저가 권한이있는지를 한번체크하는로직필요
         itemRepository.save(item);
     }
+    @Transactional
+    public Item updateItem(Long itemId, Book param) {
+        Item findItem = itemRepository.findOne(itemId);
+        findItem.setPrice(param.getPrice());
+        findItem.setName(param.getName());
+        findItem.setStockQuantity(param.getStockQuantity());
+        return findItem;
+    } // UPDATE SQL 나감 DIRTY CHECKING
 
     public List<Item> findItems() {
         return itemRepository.findAll();
